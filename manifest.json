@@ -1,0 +1,11 @@
+{
+  "name": "Calcular tempo: Youtube",
+  "description": "Essa extensão tem a função de calcular o tempo dos videos e além disso essa extensão pode fazer calculo de tempo manualmente.",
+  "version": "1.0",
+  "manifest_version": 3,
+  "default_locale": "pt-BR",
+  "action": {
+    "default_popup": "index.html"
+}
+
+}

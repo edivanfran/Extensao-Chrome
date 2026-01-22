@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Calculadora de tempo</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon"
+        href="https://static.vecteezy.com/system/resources/previews/000/357/267/original/vector-calculator-icon.jpg"
+        type="image/x-icon">
+</head>
+
+<body>
+    <section>
+        <div id="opcao">
+            <h2>Opções</h2>
+            <select id="opcoes">
+                <option value="0">Mudar opção</option>
+                <option value="1">Adicionar</option>
+                <option value="2">Subtrair</option>
+                <option value="3">Multiplicar</option>
+                <option value="4">Dividir</option>
+            </select>
+        </div>
+        <div>
+            <h2 id="tempo_video">Tempo do vídeo</h2>
+            <input type="number" id="horas" placeholder="Horas" min="0"> :
+            <input type="number" id="minutos" placeholder="Minutos" min="0"> :
+            <input type="number" id="segundos" placeholder="Segundos" min="0">
+        </div>
+        <div id="div_adicionar">
+            <br>
+            <button>adicionar</button>
+            <button>desfazer</button>
+        </div>
+        <div id="div_subtrair">
+            <h2 id="tempo_video">Subtraindo...</h2>
+            <input type="number" id="subtrair_horas" placeholder="Horas" min="0"> :
+            <input type="number" id="subtrair_minutos" placeholder="Minutos" min="0"> :
+            <input type="number" id="subtrair_segundos" placeholder="Segundos" min="0">
+        </div>
+        <div id="div_dividir/multiplicar">
+            <h2>Velocidade</h2>
+            <form>
+                <select id="velocidade">
+                    <option value="1">1x</option>
+                    <option value="1.25">1.25x</option>
+                    <option value="1.5">1.5x</option>
+                    <option value="1.75">1.75x</option>
+                    <option value="2">2x</option>
+                    <option>Personalizado</option>
+                </select>
+            </form>
+            <h2>Faltam:</h2>
+            <p id="faltam"></p>
+        </div>
+        <br>
+    </section>
+    <button id="botao_calcular">Calcular</button>
+    <button>Use manualmente</button>
+    <h5>by Edivan Francisco</h5>
+
+    <script src="scp.js"></script>
+</body>
+<footer>
+    @Copyright 2026. Todos os direitos reservados a Edivan Francisco.
+</footer>
+
+</html>
