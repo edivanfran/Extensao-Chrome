@@ -49,14 +49,14 @@ seleciado.addEventListener("change", function (event) {
 const mostra_resultado = document.getElementById("faltam");
 const botao = document.getElementById("botao_calcular");
 
-function desconverter_de_segundos(t_horas, t_minutos, t_segundos) {
+function desconverter_de_segundos(t_horas = 0, t_minutos = 0, t_segundos = 0) {
     // Pega os valores passados na função e coloca nas suas respectivas variáveis.
     let segundos = t_segundos;
     let minutos = t_minutos;
     let horas = t_horas;
 
     let dias = 0;
-    let semana = 0;
+    let semanas = 0;
     let mes = 0;
 
     // Essa parte fica fazendo uma conversão de segundos, minutos... até cada um chegar no seu limite que não pode ser mais convertido.
@@ -71,21 +71,23 @@ function desconverter_de_segundos(t_horas, t_minutos, t_segundos) {
             dias += 1
             horas -= 24
         } else if (dias > 6) {
-            semana += 1
+            semanas += 1
             dias -= 7
-        } else if (semana >= 4) {
+        } else if (semanas >= 4) {
             mes += 1
-            semana -= 4
+            semanas -= 4
         } else
             break;
     }
 
     // Aqui cada parte é encaixada para ser colocada como texto.
-    let resultado = `${mes} mes, ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos.`;
+    // Faltou semanas
+    let resultado = `${mes} meses, ${semanas} semanas, ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos.`;
     return resultado;
 }
 
-function converter_segundos(t_horas, t_minutos, t_segundos) {
+// t_horas = 0, isso serve caso não tenha nenhum valor definido, assim ele continua a função sendo 0 um valor padrão.
+function converter_segundos(t_horas = 0, t_minutos = 0, t_segundos = 0) {
     let segundos = t_segundos;
     let minutos = t_minutos;
     let horas = t_horas;
@@ -114,7 +116,48 @@ function calcular_velocidade(t_horas = tempo_horas, t_minutos = tempo_minutos, t
     return segundo / valor_velocidade;
 }
 
+// Essa função serve para pegar os valores do usuário e para não repetir código
+function pegar_valores_input() {
+    let tempo_horas = Number(document.getElementById("horas").value);
+    let tempo_minutos = Number(document.getElementById("minutos").value);
+    let tempo_segundos = Number(document.getElementById("segundos").value);
+
+    return [tempo_segundos, tempo_minutos, tempo_horas];
+}
+
+// lógica da parte de adicionar
+let botao_adicionar = document.getElementById("botao_adicionar");
+let botao_desfazer = document.getElementById("botao_desfazer");
+let botao_resetar = document.getElementById("botao_resetar");
+
+botao_adicionar.addEventListener("click", function () {
+    // desempacota os valores que viram da lista.
+    let [tempo_segundos, tempo_minutos, tempo_horas] = pegar_valores_input();
+
+    adicionar_tempo(tempo_horas, tempo_minutos, tempo_segundos);
+    total_atual = desconverter_de_segundos(0, 0, t_segundos = atualizar_ao_adicionar());
+
+    mostra_resultado.textContent = total_atual;
+})
+
+botao_desfazer.addEventListener("click", function () {
+    historico.pop();
+
+    total_atual = desconverter_de_segundos(0, 0, atualizar_ao_adicionar());
+
+    mostra_resultado.textContent = total_atual;
+})
+
+botao_resetar.addEventListener("click", function () {
+    historico = [];
+
+    total_atual = desconverter_de_segundos(0, 0, atualizar_ao_adicionar());
+
+    mostra_resultado.textContent = total_atual;
+})
+
 historico = [];
+// Temos duas opções, ou salva na lista já convertido em segundos ou mantem o formato original e fica convertendo e desconverter.
 function adicionar_tempo(t_horas, t_minutos, t_segundos) {
     historico.push(converter_segundos(t_horas, t_minutos, t_segundos));
 }
@@ -123,7 +166,7 @@ function atualizar_ao_adicionar() {
     segundos_total = 0
 
     for (item of historico) {
-        segundos_total += converter_segundos(item);
+        segundos_total += item;
     }
 
     return segundos_total;
@@ -171,9 +214,7 @@ function atualizar_ao_adicionar() {
 // Adicionar o código que vai toda lógico do botão do que vai acontecer quando for clicado.
 botao.addEventListener("click", function () {
     // O horário que foi inserido
-    let tempo_horas = Number(document.getElementById("horas").value);
-    let tempo_minutos = Number(document.getElementById("minutos").value);
-    let tempo_segundos = Number(document.getElementById("segundos").value);
+    let [tempo_segundos, tempo_minutos, tempo_horas] = pegar_valores_input();
 
     if (tempo_horas === 0 && tempo_minutos === 0 && tempo_segundos === 0) {
         mostra_resultado.textContent = "-Insira um valor-";
