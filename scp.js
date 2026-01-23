@@ -125,6 +125,14 @@ function pegar_valores_input() {
     return [tempo_segundos, tempo_minutos, tempo_horas];
 }
 
+function pegar_valores_subtraindo_input() {
+    let subtrair_horas = Number(document.getElementById("subtrair_horas").value);
+    let subtrair_minutos = Number(document.getElementById("subtrair_minutos").value);
+    let subtrair_segundos = Number(document.getElementById("subtrair_segundos").value);
+
+    return [subtrair_segundos, subtrair_minutos, subtrair_horas];
+}
+
 // lógica da parte de adicionar
 let botao_adicionar = document.getElementById("botao_adicionar");
 let botao_desfazer = document.getElementById("botao_desfazer");
@@ -219,7 +227,25 @@ botao.addEventListener("click", function () {
     if (tempo_horas === 0 && tempo_minutos === 0 && tempo_segundos === 0) {
         mostra_resultado.textContent = "-Insira um valor-";
     } else {
-        mostra_resultado.textContent = desconverter_de_segundos(tempo_horas, tempo_minutos, tempo_segundos);
+        switch (Number(seleciado.value)) {
+            case 0:
+                mostra_resultado.textContent = desconverter_de_segundos(tempo_horas, tempo_minutos, tempo_segundos);
+                break;
+            case 1:
+                break;
+            case 2:
+                let [subtrair_segundos, subtrair_minutos, subtrair_horas] = pegar_valores_subtraindo_input();
+                segundos_normais = converter_segundos(tempo_horas, tempo_minutos, tempo_segundos);
+                segundos_subtrair = converter_segundos(subtrair_horas, subtrair_minutos, subtrair_segundos);
+
+                resultado = segundos_normais - segundos_subtrair;
+                // Math.abs serve para mesmo que o valor seja negativo ainda consiga acontecer a lógica de conversão normalmente.
+                if (resultado < 0) {
+                    mostra_resultado.textContent = `Precisaria de mais: ${desconverter_de_segundos(0, 0, Math.abs(resultado))}`;
+                } else {
+                    mostra_resultado.textContent = desconverter_de_segundos(0, 0, Math.abs(resultado));
+                }
+        }
     }
 }
 )
