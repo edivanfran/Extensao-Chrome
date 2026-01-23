@@ -34,6 +34,7 @@ button {
     text-align: center;
     padding: 15 px;
     border: 2px solid;
+    border-radius: 2dvw;
     background-color: rgb(76, 203, 156);
     cursor: pointer;
 }
