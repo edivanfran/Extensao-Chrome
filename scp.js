@@ -3,15 +3,20 @@ const seleciado = document.getElementById("opcoes");
 
 const div_adicionar = document.getElementById("div_adicionar");
 const div_subtrair = document.getElementById("div_subtrair");
-const div_multi_div = document.getElementById("div_dividir/multiplicar");
+const div_dividir = document.getElementById("div_dividir");
+const div_multiplicar = document.getElementById("div_multiplicar");
 
 seleciado.addEventListener("change", function (event) {
+    // Para tornar as divs invisíveis
     div_adicionar.style.visibility = 'hidden';
     div_subtrair.style.visibility = 'hidden';
-    div_multi_div.style.visibility = 'hidden';
+    div_dividir.style.visibility = 'hidden';
+    div_multiplicar.style.visibility = 'hidden';
+    // Para fazer elas não continuarem a ocupar o espaço dentro no site 
     div_adicionar.style.display = 'none';
     div_subtrair.style.display = 'none';
-    div_multi_div.style.display = 'none';
+    div_dividir.style.display = 'none';
+    div_multiplicar.style.display = 'none';
 
     switch (Number(seleciado.value)) {
         // Nenhuma opção
@@ -32,18 +37,18 @@ seleciado.addEventListener("change", function (event) {
 
         // Multiplicar
         case 3:
-            div_multi_div.style.visibility = 'visible';
-            div_multi_div.style.display = 'block';
+            div_multiplicar.style.visibility = 'visible';
+            div_multiplicar.style.display = 'block';
             break;
 
         // Dividir
         case 4:
-            div_multi_div.style.visibility = 'visible';
-            div_multi_div.style.display = 'block';
+            div_dividir.style.visibility = 'visible';
+            div_dividir.style.display = 'block';
             break;
     }
 }
-)
+);
 
 // Para calcular o tempo e mudar o elemento
 const mostra_resultado = document.getElementById("faltam");
@@ -85,7 +90,23 @@ function desconverter_de_segundos(t_horas = 0, t_minutos = 0, t_segundos = 0) {
     }
 
     // Aqui cada parte é encaixada para ser colocada como texto.
-    // Faltou semanas
+    let resultado = `${ano} anos, ${mes} meses, ${semanas} semanas, ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos.`;
+    return resultado;
+}
+
+function desconverter_de_segundos_novo(t_horas = 0, t_minutos = 0, t_segundos = 0) {
+    // Pega os valores passados na função e coloca nas suas respectivas variáveis.
+    let segundos = converter_segundos(t_horas, t_minutos, t_segundos);
+
+    let dias = 0;
+    let semanas = 0;
+    let mes = 0;
+    let ano = 0;
+
+    segundos = segundos % 60;
+    minutos = segundos / 60;
+
+
     let resultado = `${ano} anos, ${mes} meses, ${semanas} semanas, ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos.`;
     return resultado;
 }
@@ -93,12 +114,10 @@ function desconverter_de_segundos(t_horas = 0, t_minutos = 0, t_segundos = 0) {
 // t_horas = 0, isso serve caso não tenha nenhum valor definido, assim ele continua a função sendo 0 um valor padrão.
 function converter_segundos(t_horas = 0, t_minutos = 0, t_segundos = 0) {
     let segundos = t_segundos;
-    let minutos = t_minutos;
-    let horas = t_horas;
 
     // Converter os horários para segundos
-    segundos += minutos * 60
-    segundos += horas * 3600
+    segundos += t_minutos * 60
+    segundos += t_horas * 3600
 
     // segundos + (minutos * 60) assim por diante
     return segundos;
@@ -174,44 +193,11 @@ function calcular_velocidade(t_horas, t_minutos, t_segundos, valorVelocidade) {
     return segundo / valorVelocidade;
 }
 
-// // O horário que foi inserido
-//     let tempo_horas = Number(document.getElementById("horas").value);
-//     let tempo_minutos = Number(document.getElementById("minutos").value);
-//     let tempo_segundos = Number(document.getElementById("segundos").value);
+function multiplicar_tempo(t_horas, t_minutos, t_segundos, valorMultiplicar) {
+    segundo = converter_segundos(t_horas, t_minutos, t_segundos);
 
-//     if (tempo_horas === 0 && tempo_minutos === 0 && tempo_segundos === 0) {
-//         mostra_resultado.textContent = "-Insira um valor-";
-//     } else {
-//         switch (Number(seleciado.value)) {
-//             // Nenhuma opção
-//             case 0:
-//                 mostra_resultado.textContent = desconverter_de_segundos(tempo_horas, tempo_minutos, tempo_segundos);
-//                 break;
-
-//             // Adicionar
-//             case 1:
-//                 adicionar_tempo(tempo_horas, tempo_minutos, tempo_segundos);
-//                 desconverter_de_segundos(t_segundos = atualizar_ao_adicionar());
-
-//             // Subtrair
-//             case 2:
-
-//                 break;
-
-//             // Multiplicar
-//             case 3:
-
-//                 break;
-
-//             // Dividir
-//             case 4:
-
-//                 break;
-
-//                 }
-//             }
-//         }
-//     );
+    return segundo * valorMultiplicar;
+}
 
 // Adicionar o código que vai toda lógico do botão do que vai acontecer quando for clicado.
 botao.addEventListener("click", function () {
@@ -222,11 +208,15 @@ botao.addEventListener("click", function () {
         mostra_resultado.textContent = "-Insira um valor-";
     } else {
         switch (Number(seleciado.value)) {
+            // Padrão
             case 0:
                 mostra_resultado.textContent = desconverter_de_segundos(tempo_horas, tempo_minutos, tempo_segundos);
                 break;
+            // Adição
             case 1:
                 break;
+
+            // Subtração
             case 2:
                 let [subtrair_segundos, subtrair_minutos, subtrair_horas] = pegar_valores_subtraindo_input();
                 segundos_normais = converter_segundos(tempo_horas, tempo_minutos, tempo_segundos);
@@ -239,9 +229,17 @@ botao.addEventListener("click", function () {
                 } else {
                     mostra_resultado.textContent = desconverter_de_segundos(0, 0, Math.abs(resultado));
                 }
-            case 3:
-
                 break;
+
+            // Multiplicação
+            case 3:
+                const valor_multiplicar = Number(document.getElementById("multi_numero").value);
+                resultado = multiplicar_tempo(tempo_horas, tempo_minutos, tempo_segundos, valor_multiplicar);
+
+                mostra_resultado.textContent = desconverter_de_segundos(0, 0, resultado);
+                break;
+
+            // Divisão 
             case 4:
                 const valor_divi = Number(document.getElementById("velocidade_divi").value);
                 resultado = calcular_velocidade(tempo_horas, tempo_minutos, tempo_segundos, valor_divi);
@@ -251,7 +249,7 @@ botao.addEventListener("click", function () {
         }
     }
 }
-)
+);
 // mostra.textContent = form.addEventListener('submit')
 // aba = await chrome.tabs.query({ active: true, currentWindows: true });
 
