@@ -10,7 +10,7 @@
         type="image/x-icon">
 </head>
 
-<body>
+<body onload="">
     <section>
         <div id="opcao">
             <h2>Opções</h2>
@@ -42,9 +42,19 @@
         </div>
         <div id="div_dividir/multiplicar">
             <h2>Velocidade</h2>
+            <p>multiplicar</p>
             <form>
-                <select id="velocidade">
-                    <option value="1">1x</option>
+                <select id="velocidade_multi">
+                    <option>Personalizado</option>
+                </select>
+            </form>
+            <p>divis</p>
+            <form>
+                <select id="velocidade_divi">
+                    <option value="0.25">0.25x</option>
+                    <option value="0.5">0.5</option>
+                    <option value="0.75">0.75x</option>
+                    <option value="1" selected>1x</option>
                     <option value="1.25">1.25x</option>
                     <option value="1.5">1.5x</option>
                     <option value="1.75">1.75x</option>

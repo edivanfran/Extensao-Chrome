@@ -58,31 +58,35 @@ function desconverter_de_segundos(t_horas = 0, t_minutos = 0, t_segundos = 0) {
     let dias = 0;
     let semanas = 0;
     let mes = 0;
+    let ano = 0;
 
     // Essa parte fica fazendo uma conversão de segundos, minutos... até cada um chegar no seu limite que não pode ser mais convertido.
     while (true) {
-        if (segundos >= 59) {
-            minutos += 1
-            segundos -= 60
+        if (segundos > 59) {
+            minutos += 1;
+            segundos -= 60;
         } else if (minutos > 59) {
-            horas += 1
-            minutos -= 60
+            horas += 1;
+            minutos -= 60;
         } else if (horas > 23) {
-            dias += 1
-            horas -= 24
+            dias += 1;
+            horas -= 24;
         } else if (dias > 6) {
-            semanas += 1
-            dias -= 7
+            semanas += 1;
+            dias -= 7;
         } else if (semanas >= 4) {
-            mes += 1
-            semanas -= 4
+            mes += 1;
+            semanas -= 4;
+        } else if (mes > 11) {
+            ano += 1;
+            mes -= 12;
         } else
             break;
     }
 
     // Aqui cada parte é encaixada para ser colocada como texto.
     // Faltou semanas
-    let resultado = `${mes} meses, ${semanas} semanas, ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos.`;
+    let resultado = `${ano} anos, ${mes} meses, ${semanas} semanas, ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos.`;
     return resultado;
 }
 
@@ -93,27 +97,11 @@ function converter_segundos(t_horas = 0, t_minutos = 0, t_segundos = 0) {
     let horas = t_horas;
 
     // Converter os horários para segundos
-    while (true) {
-        if (horas >= 1) {
-            minutos += 60
-            horas -= 1
-        } else if (minutos >= 1) {
-            segundos += 60
-            minutos -= 1
-        } else
-            break
-    }
+    segundos += minutos * 60
+    segundos += horas * 3600
 
     // segundos + (minutos * 60) assim por diante
     return segundos;
-}
-
-function calcular_velocidade(t_horas = tempo_horas, t_minutos = tempo_minutos, t_segundos = tempo_segundos) {
-    const valor_velocidade = Number(document.getElementById("velocidade").value);
-
-    segundo = converter_segundos(t_horas, t_minutos, t_segundos);
-
-    return segundo / valor_velocidade;
 }
 
 // Essa função serve para pegar os valores do usuário e para não repetir código
@@ -178,6 +166,12 @@ function atualizar_ao_adicionar() {
     }
 
     return segundos_total;
+}
+
+function calcular_velocidade(t_horas, t_minutos, t_segundos, valorVelocidade) {
+    segundo = converter_segundos(t_horas, t_minutos, t_segundos);
+
+    return segundo / valorVelocidade;
 }
 
 // // O horário que foi inserido
@@ -245,6 +239,15 @@ botao.addEventListener("click", function () {
                 } else {
                     mostra_resultado.textContent = desconverter_de_segundos(0, 0, Math.abs(resultado));
                 }
+            case 3:
+
+                break;
+            case 4:
+                const valor_divi = Number(document.getElementById("velocidade_divi").value);
+                resultado = calcular_velocidade(tempo_horas, tempo_minutos, tempo_segundos, valor_divi);
+
+                mostra_resultado.textContent = desconverter_de_segundos(0, 0, resultado);
+                break;
         }
     }
 }
