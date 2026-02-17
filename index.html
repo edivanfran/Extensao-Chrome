@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8" />
     <title>Calculadora de tempo</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="popup.css" />
     <link rel="icon"
         href="https://static.vecteezy.com/system/resources/previews/000/357/267/original/vector-calculator-icon.jpg"
         type="image/x-icon">
 </head>
 
-<body onload="">
+<body onload="trocar_opcao()">
     <section>
         <div id="opcao">
             <h2>Opções</h2>
@@ -20,12 +20,15 @@
                 <option value="2">Subtrair</option>
                 <option value="3">Multiplicar</option>
                 <option value="4">Dividir</option>
+                <option value="5">Converter</option>
             </select>
         </div>
-        <div>
-            <h2 id="tempo_video">Tempo do vídeo</h2>
-            <input type="number" id="horas" placeholder="Horas" min="0"> :
-            <input type="number" id="minutos" placeholder="Minutos" min="0"> :
+        <h2 id="tempo_video">Tempo do vídeo</h2>
+        <div class="time-inputs">
+            <input type="number" id="horas" placeholder="Horas" min="0">
+            <span>:</span>
+            <input type="number" id="minutos" placeholder="Minutos" min="0">
+            <span>:</span>
             <input type="number" id="segundos" placeholder="Segundos" min="0">
         </div>
         <div id="div_adicionar">
@@ -36,31 +39,44 @@
         </div>
         <div id="div_subtrair">
             <h2 id="tempo_video">Subtraindo...</h2>
-            <input type="number" id="subtrair_horas" placeholder="Horas" min="0"> :
-            <input type="number" id="subtrair_minutos" placeholder="Minutos" min="0"> :
-            <input type="number" id="subtrair_segundos" placeholder="Segundos" min="0">
+            <div class="time-inputs">
+                <input type="number" id="subtrair_horas" placeholder="Horas" min="0">
+                <span>:</span>
+                <input type="number" id="subtrair_minutos" placeholder="Minutos" min="0">
+                <span>:</span>
+                <input type="number" id="subtrair_segundos" placeholder="Segundos" min="0">
+            </div>
         </div>
         <div id="div_multiplicar">
             <h2>Vezes</h2>
-            <form>
+            <form class="time-inputs">
                 <input type="number" id="multi_numero" min="1">
             </form>
         </div>
         <div id="div_dividir">
             <h2>Velocidade</h2>
-            <form>
-                <select id="velocidade_divi">
-                    <option value="0.25">0.25x</option>
-                    <option value="0.5">0.5</option>
-                    <option value="0.75">0.75x</option>
-                    <option value="1" selected>1x</option>
-                    <option value="1.25">1.25x</option>
-                    <option value="1.5">1.5x</option>
-                    <option value="1.75">1.75x</option>
-                    <option value="2">2x</option>
-                    <option>Personalizado</option>
-                </select>
-            </form>
+            <select id="velocidade_divi">
+                <option value="0.25">0.25x</option>
+                <option value="0.5">0.5</option>
+                <option value="0.75">0.75x</option>
+                <option value="1" selected>1x</option>
+                <option value="1.25">1.25x</option>
+                <option value="1.5">1.5x</option>
+                <option value="1.75">1.75x</option>
+                <option value="2">2x</option>
+                <option>Personalizado</option>
+            </select>
+        </div>
+        <div id="div_converter">
+            <h2>Convertendo</h2>
+            <select name="Nome?" id="tipo_conversao">
+                <option value="0">Segundos</option>
+                <option value="1">Minutos</option>
+                <option value="2">Horas</option>
+                <option value="3">Dias</option>
+                <option value="4">Semanas</option>
+                <option value="5">Meses</option>
+            </select>
         </div>
         <h2>Resultado:</h2>
         <p id="faltam"></p>
@@ -70,7 +86,7 @@
     <button>Use manualmente</button>
     <h5>by Edivan Francisco</h5>
 
-    <script src="scp.js"></script>
+    <script src="popup.js"></script>
 </body>
 <footer>
     @Copyright 2026. Todos os direitos reservados a Edivan Francisco.

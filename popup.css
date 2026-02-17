@@ -1,0 +1,109 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #121212;
+    color: #f1f1f1;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 380px;
+}
+
+section {
+    padding: 12px;
+}
+
+h2 {
+    margin: 0 0 6px;
+    font-size: 0.9rem;
+    color: #00b894;
+}
+
+#opcao,
+#input_horas,
+#div_adicionar,
+#resultado,
+#acoes {
+    background-color: #1b1b1b;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Select */
+select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    background-color: #2a2a2a;
+    color: #fff;
+}
+
+.time-inputs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.time-inputs input {
+    flex: 1;
+    min-width: 0;
+    padding: 8px;
+    text-align: center;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    border: 1px solid #00b894;
+    background-color: #1b1b1b;
+    color: #ffffff;
+}
+
+.time-inputs span {
+    flex: 0 0 auto;
+    color: #00b894;
+    font-weight: bold;
+}
+
+
+/* Botões */
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border: none;
+    border-radius: 6px;
+    background-color: #00b894;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #00d1a0;
+}
+
+/* Grupo de botões lado a lado */
+#div_adicionar {
+    display: flex;
+    gap: 6px;
+}
+
+#div_adicionar button {
+    width: 100%;
+}
+
+/* Resultado */
+#faltam {
+    font-size: 0.9rem;
+    color: #eaeaea;
+}
+
+/* Rodapé */
+h5,
+footer {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #aaaaaa;
+    margin-top: 8px;
+}

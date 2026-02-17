@@ -111,7 +111,7 @@ Digite a opção que você deseja:
 
 while True:
     if segundos > 59:
-        minutos +=1
+        minutos += 1
         segundos -= 60
     elif minutos > 59:
         horas += 1
