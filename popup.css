@@ -100,7 +100,7 @@ button:hover {
 }
 
 /* Rodapé */
-h5,
+small,
 footer {
     text-align: center;
     font-size: 0.7rem;
