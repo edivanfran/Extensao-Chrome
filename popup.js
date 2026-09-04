@@ -96,17 +96,28 @@ function desconverter_de_segundos(t_horas = 0, t_minutos = 0, t_segundos = 0) {
 
 function desconverter_de_segundos_novo(t_horas = 0, t_minutos = 0, t_segundos = 0) {
     // Pega os valores passados na função e coloca nas suas respectivas variáveis.
-    let segundos = converter_segundos(t_horas, t_minutos, t_segundos);
+    let segundosConvertidos = converter_segundos(t_horas, t_minutos, t_segundos);
 
-    let dias = 0;
-    let semanas = 0;
-    let mes = 0;
-    let ano = 0;
+    let segundosTotal = segundosConvertidos % 60;
 
-    segundos = segundos % 60;
-    minutos = Math.floor(segundos / 60);
+    let minutosTotal = Math.floor(segundosConvertidos / 60);
+    let minutos = minutosTotal % 60;
 
-    let resultado = `${ano} anos, ${mes} meses, ${semanas} semanas, ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos.`;
+    let horasTotal = Math.floor(minutosTotal / 60);
+    let horas = horasTotal % 24;
+
+    let diasTotal = Math.floor(horasTotal / 24);
+    dias = diasTotal % 7;
+
+    let semanasTotal = Math.floor(diasTotal / 7);
+    semanas = semanasTotal % 4;
+
+    let mesTotal = Math.floor(semanasTotal / 4);
+    let mes = mesTotal % 12;
+
+    ano = Math.floor(mesTotais / 12);
+
+    let resultado = `${ano} anos, ${mes} meses, ${semanas} semanas, ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundosTotal} segundos.`;
     return resultado;
 }
 
