@@ -1,12 +1,12 @@
 // Qual opção foi selecionada
-const seleciado = document.getElementById("opcoes");
+const seleciado = document.getElementById('opcoes');
 
-const div_adicionar = document.getElementById("div_adicionar");
-const div_subtrair = document.getElementById("div_subtrair");
-const div_dividir = document.getElementById("div_dividir");
-const div_multiplicar = document.getElementById("div_multiplicar");
+const div_adicionar = document.getElementById('div_adicionar');
+const div_subtrair = document.getElementById('div_subtrair');
+const div_dividir = document.getElementById('div_dividir');
+const div_multiplicar = document.getElementById('div_multiplicar');
 
-seleciado.addEventListener("change", trocar_opcao);
+seleciado.addEventListener('change', trocar_opcao);
 
 function trocar_opcao(event) {
     // Para tornar as divs invisíveis
@@ -14,7 +14,7 @@ function trocar_opcao(event) {
     div_subtrair.style.visibility = 'hidden';
     div_dividir.style.visibility = 'hidden';
     div_multiplicar.style.visibility = 'hidden';
-    // Para fazer elas não continuarem a ocupar o espaço dentro no site 
+    // Para fazer elas não continuarem a ocupar o espaço dentro no site
     div_adicionar.style.display = 'none';
     div_subtrair.style.display = 'none';
     div_dividir.style.display = 'none';
@@ -52,8 +52,8 @@ function trocar_opcao(event) {
 }
 
 // Para calcular o tempo e mudar o elemento
-const mostra_resultado = document.getElementById("faltam");
-const botao = document.getElementById("botao_calcular");
+const mostra_resultado = document.getElementById('faltam');
+const botao = document.getElementById('botao_calcular');
 
 function desconverter_de_segundos(t_horas = 0, t_minutos = 0, t_segundos = 0) {
     // Pega os valores passados na função e coloca nas suas respectivas variáveis.
@@ -86,8 +86,7 @@ function desconverter_de_segundos(t_horas = 0, t_minutos = 0, t_segundos = 0) {
         } else if (mes > 11) {
             ano += 1;
             mes -= 12;
-        } else
-            break;
+        } else break;
     }
 
     // Aqui cada parte é encaixada para ser colocada como texto.
@@ -107,7 +106,6 @@ function desconverter_de_segundos_novo(t_horas = 0, t_minutos = 0, t_segundos = 
     segundos = segundos % 60;
     minutos = Math.floor(segundos / 60);
 
-
     let resultado = `${ano} anos, ${mes} meses, ${semanas} semanas, ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos.`;
     return resultado;
 }
@@ -117,69 +115,71 @@ function converter_segundos(t_horas = 0, t_minutos = 0, t_segundos = 0) {
     let segundos = t_segundos;
 
     // Converter os horários para segundos
-    segundos += t_minutos * 60
-    segundos += t_horas * 3600
+    segundos += t_minutos * 60;
+    segundos += t_horas * 3600;
 
     // segundos + (minutos * 60) assim por diante
     return segundos;
 }
 
-// Essa função serve para pegar os valores do usuário e para não repetir código
+/**
+ * Essa função serve para pegar os valores do usuário e para não repetir código .
+ * */
 function pegar_valores_input() {
-    let tempo_horas = Number(document.getElementById("horas").value);
-    let tempo_minutos = Number(document.getElementById("minutos").value);
-    let tempo_segundos = Number(document.getElementById("segundos").value);
+    let tempo_horas = Number(document.getElementById('horas').value);
+    let tempo_minutos = Number(document.getElementById('minutos').value);
+    let tempo_segundos = Number(document.getElementById('segundos').value);
 
     return [tempo_segundos, tempo_minutos, tempo_horas];
 }
 
 function pegar_valores_subtraindo_input() {
-    let subtrair_horas = Number(document.getElementById("subtrair_horas").value);
-    let subtrair_minutos = Number(document.getElementById("subtrair_minutos").value);
-    let subtrair_segundos = Number(document.getElementById("subtrair_segundos").value);
+    let subtrair_horas = Number(document.getElementById('subtrair_horas').value);
+    let subtrair_minutos = Number(document.getElementById('subtrair_minutos').value);
+    let subtrair_segundos = Number(document.getElementById('subtrair_segundos').value);
 
     return [subtrair_segundos, subtrair_minutos, subtrair_horas];
 }
 
 // lógica da parte de adicionar
-let botao_adicionar = document.getElementById("botao_adicionar");
-let botao_desfazer = document.getElementById("botao_desfazer");
-let botao_resetar = document.getElementById("botao_resetar");
+let botao_adicionar = document.getElementById('botao_adicionar');
+let botao_desfazer = document.getElementById('botao_desfazer');
+let botao_resetar = document.getElementById('botao_resetar');
 
-botao_adicionar.addEventListener("click", function () {
+botao_adicionar.addEventListener('click', function () {
     // desempacota os valores que viram da lista.
     let [tempo_segundos, tempo_minutos, tempo_horas] = pegar_valores_input();
 
     adicionar_tempo(tempo_horas, tempo_minutos, tempo_segundos);
-    total_atual = desconverter_de_segundos(0, 0, t_segundos = atualizar_ao_adicionar());
+    total_atual = desconverter_de_segundos(0, 0, (t_segundos = atualizar_ao_adicionar()));
 
     mostra_resultado.textContent = total_atual;
-})
+});
 
-botao_desfazer.addEventListener("click", function () {
+botao_desfazer.addEventListener('click', function () {
     historico.pop();
 
     total_atual = desconverter_de_segundos(0, 0, atualizar_ao_adicionar());
 
     mostra_resultado.textContent = total_atual;
-})
+});
 
-botao_resetar.addEventListener("click", function () {
+botao_resetar.addEventListener('click', function () {
     historico = [];
 
     total_atual = desconverter_de_segundos(0, 0, atualizar_ao_adicionar());
 
     mostra_resultado.textContent = total_atual;
-})
+});
 
-historico = [];
+let historico = [];
 // Temos duas opções, ou salva na lista já convertido em segundos ou mantem o formato original e fica convertendo e desconverter.
 function adicionar_tempo(t_horas, t_minutos, t_segundos) {
     historico.push(converter_segundos(t_horas, t_minutos, t_segundos));
 }
 
 function atualizar_ao_adicionar() {
-    segundos_total = 0
+    segundos_total = 0;
 
     for (item of historico) {
         segundos_total += item;
@@ -201,21 +201,29 @@ function multiplicar_tempo(t_horas, t_minutos, t_segundos, valorMultiplicar) {
 }
 
 // Adicionar o código que vai toda lógico do botão do que vai acontecer quando for clicado.
-botao.addEventListener("click", function () {
+botao.addEventListener('click', function () {
     // O horário que foi inserido
     let [tempo_segundos, tempo_minutos, tempo_horas] = pegar_valores_input();
 
     if (tempo_horas === 0 && tempo_minutos === 0 && tempo_segundos === 0) {
-        mostra_resultado.textContent = "-Insira um valor-";
+        mostra_resultado.textContent = '-Insira um valor-';
     } else {
         switch (Number(seleciado.value)) {
             // Padrão
             case 0:
-                mostra_resultado.textContent = desconverter_de_segundos(tempo_horas, tempo_minutos, tempo_segundos);
+                mostra_resultado.textContent = desconverter_de_segundos(
+                    tempo_horas,
+                    tempo_minutos,
+                    tempo_segundos,
+                );
                 break;
             // Adição
             case 1:
-                mostra_resultado.textContent = desconverter_de_segundos(tempo_horas, tempo_minutos, tempo_segundos);
+                mostra_resultado.textContent = desconverter_de_segundos(
+                    tempo_horas,
+                    tempo_minutos,
+                    tempo_segundos,
+                );
                 break;
 
             // Subtração
@@ -235,24 +243,23 @@ botao.addEventListener("click", function () {
 
             // Multiplicação
             case 3:
-                const valor_multiplicar = Number(document.getElementById("multi_numero").value);
+                const valor_multiplicar = Number(document.getElementById('multi_numero').value);
                 resultado = multiplicar_tempo(tempo_horas, tempo_minutos, tempo_segundos, valor_multiplicar);
 
                 mostra_resultado.textContent = desconverter_de_segundos(0, 0, resultado);
                 break;
 
-            // Divisão 
+            // Divisão
             case 4:
-                const valor_divi = Number(document.getElementById("velocidade_divi").value);
+                const valor_divi = Number(document.getElementById('velocidade_divi').value);
                 resultado = calcular_velocidade(tempo_horas, tempo_minutos, tempo_segundos, valor_divi);
 
                 mostra_resultado.textContent = desconverter_de_segundos(0, 0, resultado);
                 break;
         }
     }
-}
-);
+});
 // mostra.textContent = form.addEventListener('submit')
 // aba = await chrome.tabs.query({ active: true, currentWindows: true });
 
-// tempo = aba.body.id.ytp - time - current 
+// tempo = aba.body.id.ytp - time - current
